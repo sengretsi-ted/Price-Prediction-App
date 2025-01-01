@@ -4,3 +4,6 @@ scikit-learn
 streamlit
 onnxruntime
 protobuf
+onnxmltools
+skl2onnx
+onnx

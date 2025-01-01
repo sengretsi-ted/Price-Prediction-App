@@ -78,15 +78,14 @@ st.title("Model Options")
 if "predictions" not in st.session_state:
     st.session_state.predictions = {}
 
-# Load ONNX models and make predictions
-# Random Forest Model
-rf_session = rt.InferenceSession("rf_r.onnx")
-rf_input_name = rf_session.get_inputs()[0].name
-random_forest_model_prediction = rf_session.run(None, {rf_input_name: df.to_numpy().astype(np.float32)})[0][0]
-if st.button("Random Forest Model Prediction"):
-    st.session_state.predictions["Decision Tree"] = (f"Predicted Median Value of House is: ${random_forest_model_prediction[0]:,.2f}")
-    print("Decision Tree:", st.session_state.predictions["Decision Tree"])
 
+# XGBoost Model
+xgb_session = rt.InferenceSession("xgb_r.onnx")
+xgb_input_name = xgb_session.get_inputs()[0].name
+xgboost_model_prediction = xgb_session.run(None, {xgb_input_name: df.to_numpy().astype(np.float32)})[0][0]
+if st.button("XGBoost Model Prediction"):
+    st.session_state.predictions["XGBoost"] = (f"Predicted Median Value of House is: ${xgboost_model_prediction[0]:,.2f}")
+    print("XGBoost:", st.session_state.predictions["XGBoost"])
 
 # Decision Tree Model
 dt_session = rt.InferenceSession("dt_r.onnx")
